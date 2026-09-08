@@ -1,0 +1,61 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Default Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-\\.]+$');
+    }
+
+    // System configuration (School name, logos, principal signature, sign place)
+    match /config/{configId} {
+      allow read: if true;
+      allow write: if isValidId(configId);
+    }
+
+    // Teachers account and responsibility
+    match /teachers/{teacherId} {
+      allow read: if true;
+      allow write: if isValidId(teacherId);
+    }
+
+    // Students list
+    match /students/{studentId} {
+      allow read: if true;
+      allow write: if isValidId(studentId);
+    }
+
+    // Attendance records (daily / monthly presensi)
+    match /attendance/{attendanceId} {
+      allow read: if true;
+      allow write: if isValidId(attendanceId);
+    }
+
+    // Grades records (penilaian harian tiap bab)
+    match /grades/{gradeId} {
+      allow read: if true;
+      allow write: if isValidId(gradeId);
+    }
+
+    // Teaching journals
+    match /teaching_journals/{journalId} {
+      allow read: if true;
+      allow write: if isValidId(journalId);
+    }
+
+    // Student guidance records (bimbingan siswa)
+    match /student_guidance/{guidanceId} {
+      allow read: if true;
+      allow write: if isValidId(guidanceId);
+    }
+
+    // Test connection doc
+    match /test/{docId} {
+      allow read, write: if true;
+    }
+  }
+}

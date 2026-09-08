@@ -1,0 +1,6 @@
+{
+  "name": "Administrasi Guru SDN Maospati 3",
+  "description": "Aplikasi administrasi guru SDN Maospati 3 untuk presensi harian/bulanan/semester, penilaian harian, jurnal mengajar, bimbingan siswa, serta cetak dokumen resmi.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

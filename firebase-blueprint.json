@@ -1,0 +1,159 @@
+{
+  "entities": {
+    "SystemConfig": {
+      "title": "SystemConfig",
+      "description": "Pengaturan instansi, logo, tanda tangan kepala satuan pendidikan, dan lokasi dokumen.",
+      "type": "object",
+      "properties": {
+        "schoolName": { "type": "string" },
+        "schoolLogoUrl": { "type": "string" },
+        "cityLogoUrl": { "type": "string" },
+        "locationCity": { "type": "string" },
+        "principalName": { "type": "string" },
+        "principalNip": { "type": "string" },
+        "principalSignatureUrl": { "type": "string" },
+        "academicYear": { "type": "string" },
+        "activeSemester": { "type": "string", "enum": ["1", "2"] }
+      },
+      "required": ["schoolName", "locationCity", "principalName"]
+    },
+    "Teacher": {
+      "title": "Teacher",
+      "description": "Akun pendidik/guru SD Negeri Suratmajan dan tanggung jawab kelas/mapel.",
+      "type": "object",
+      "properties": {
+        "nip": { "type": "string" },
+        "name": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "guru"] },
+        "tanggungJawab": {
+          "type": "string",
+          "enum": [
+            "Kelas 1",
+            "Kelas 2",
+            "Kelas 3",
+            "Kelas 4",
+            "Kelas 5",
+            "Kelas 6",
+            "Pendidikan Agama Islam",
+            "PJOK"
+          ]
+        },
+        "signatureUrl": { "type": "string" },
+        "password": { "type": "string" }
+      },
+      "required": ["name", "role", "tanggungJawab", "password"]
+    },
+    "Student": {
+      "title": "Student",
+      "description": "Data siswa SD Negeri Suratmajan.",
+      "type": "object",
+      "properties": {
+        "nis": { "type": "string" },
+        "nisn": { "type": "string" },
+        "name": { "type": "string" },
+        "gender": { "type": "string", "enum": ["L", "P"] },
+        "kelas": {
+          "type": "string",
+          "enum": ["Kelas 1", "Kelas 2", "Kelas 3", "Kelas 4", "Kelas 5", "Kelas 6"]
+        },
+        "isActive": { "type": "boolean" }
+      },
+      "required": ["name", "gender", "kelas"]
+    },
+    "AttendanceRecord": {
+      "title": "AttendanceRecord",
+      "description": "Catatan presensi harian per kelas (H, S, I, A).",
+      "type": "object",
+      "properties": {
+        "kelas": { "type": "string" },
+        "date": { "type": "string" },
+        "month": { "type": "string" },
+        "semester": { "type": "string", "enum": ["1", "2"] },
+        "teacherId": { "type": "string" },
+        "records": { "type": "object" },
+        "notes": { "type": "string" }
+      },
+      "required": ["kelas", "date", "month", "semester", "records"]
+    },
+    "GradeRecord": {
+      "title": "GradeRecord",
+      "description": "Catatan penilaian harian per bab per kelas.",
+      "type": "object",
+      "properties": {
+        "kelas": { "type": "string" },
+        "subject": { "type": "string" },
+        "chapter": { "type": "string" },
+        "assessmentName": { "type": "string" },
+        "teacherId": { "type": "string" },
+        "scores": { "type": "object" },
+        "semester": { "type": "string", "enum": ["1", "2"] }
+      },
+      "required": ["kelas", "subject", "chapter", "assessmentName", "scores"]
+    },
+    "TeachingJournal": {
+      "title": "TeachingJournal",
+      "description": "Jurnal catatan mengajar harian guru.",
+      "type": "object",
+      "properties": {
+        "kelas": { "type": "string" },
+        "teacherId": { "type": "string" },
+        "teacherName": { "type": "string" },
+        "date": { "type": "string" },
+        "month": { "type": "string" },
+        "lessonHours": { "type": "string" },
+        "subject": { "type": "string" },
+        "topic": { "type": "string" },
+        "reflection": { "type": "string" }
+      },
+      "required": ["kelas", "teacherId", "date", "month", "subject", "topic"]
+    },
+    "StudentGuidance": {
+      "title": "StudentGuidance",
+      "description": "Catatan bimbingan dan konseling siswa.",
+      "type": "object",
+      "properties": {
+        "kelas": { "type": "string" },
+        "studentId": { "type": "string" },
+        "studentName": { "type": "string" },
+        "teacherId": { "type": "string" },
+        "date": { "type": "string" },
+        "semester": { "type": "string", "enum": ["1", "2"] },
+        "issue": { "type": "string" },
+        "actionTaken": { "type": "string" },
+        "result": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "required": ["kelas", "studentId", "studentName", "date", "semester", "issue", "actionTaken"]
+    }
+  },
+  "firestore": {
+    "/config/system": {
+      "schema": { "$ref": "#/entities/SystemConfig" },
+      "description": "Konfigurasi instansi SD Negeri Suratmajan dan tanda tangan kepala satuan pendidikan"
+    },
+    "/teachers/{teacherId}": {
+      "schema": { "$ref": "#/entities/Teacher" },
+      "description": "Daftar akun pendidik / guru dan tanggung jawab kelas"
+    },
+    "/students/{studentId}": {
+      "schema": { "$ref": "#/entities/Student" },
+      "description": "Daftar siswa SD Negeri Suratmajan di tiap kelas"
+    },
+    "/attendance/{attendanceId}": {
+      "schema": { "$ref": "#/entities/AttendanceRecord" },
+      "description": "Rekapitulasi presensi harian siswa per kelas"
+    },
+    "/grades/{gradeId}": {
+      "schema": { "$ref": "#/entities/GradeRecord" },
+      "description": "Data penilaian harian tiap bab per kelas"
+    },
+    "/teaching_journals/{journalId}": {
+      "schema": { "$ref": "#/entities/TeachingJournal" },
+      "description": "Jurnal catatan mengajar guru per kelas dan bulan"
+    },
+    "/student_guidance/{guidanceId}": {
+      "schema": { "$ref": "#/entities/StudentGuidance" },
+      "description": "Catatan bimbingan siswa per kelas dan semester"
+    }
+  }
+}

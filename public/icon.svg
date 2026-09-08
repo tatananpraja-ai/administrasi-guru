@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="100" fill="url(#blueGrad)"/>
+  <circle cx="256" cy="256" r="210" fill="none" stroke="#ffffff" stroke-opacity="0.2" stroke-width="6"/>
+  <circle cx="256" cy="256" r="195" fill="none" stroke="url(#goldGrad)" stroke-width="8"/>
+  <!-- Open Book -->
+  <path d="M120 330 C170 310 230 315 256 340 C282 315 342 310 392 330 L392 200 C342 180 282 185 256 210 C230 185 170 180 120 200 Z" fill="#ffffff" filter="drop-shadow(0 4px 6px rgba(0,0,0,0.3))"/>
+  <path d="M256 210 L256 340" stroke="#0284c7" stroke-width="4"/>
+  <!-- Torch / Flame -->
+  <path d="M256 120 C240 145 235 165 245 180 C250 165 262 165 267 180 C277 165 272 145 256 120 Z" fill="url(#goldGrad)"/>
+  <!-- Star -->
+  <polygon points="256,70 262,85 278,85 265,95 270,110 256,100 242,110 247,95 234,85 250,85" fill="#fef08a"/>
+  <!-- Text -->
+  <text x="256" y="385" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="26" font-weight="900" fill="#ffffff" letter-spacing="2">SDN SURATMAJAN</text>
+  <text x="256" y="415" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="#fde047" letter-spacing="3">ADMINISTRASI GURU</text>
+</svg>
